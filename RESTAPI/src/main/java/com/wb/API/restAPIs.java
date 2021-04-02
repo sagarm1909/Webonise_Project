@@ -36,6 +36,7 @@ public class restAPIs {
 	
 	AuthorizationServices authorizationServices = new AuthorizationServices();
 	
+	//Login API
 	@PostMapping(value = "login", produces = MediaType.TEXT_PLAIN_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> doLogin(@RequestBody LoginRequestBody requestLoginData) {		
 		boolean isLogin = authorizationServices.userLoginAuthorization(requestLoginData.getEmailID(), requestLoginData.getPassword());
@@ -47,6 +48,7 @@ public class restAPIs {
 		
 	}
 	
+	//Sign UP API
 	@PostMapping(value = "signup", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Object>> doSignUp(@RequestBody SignupRequestBody requestSignupData) {
 		Map<String, Object> userInfoMap = authorizationServices.userSignupAuthorization(requestSignupData.getFirstName(), requestSignupData.getLastName(), requestSignupData.getEmailID(), requestSignupData.getPassword(), requestSignupData.getCompany(), requestSignupData.getCountry());		
@@ -54,6 +56,7 @@ public class restAPIs {
 		
 	}
 	
+	//Listing on basis of Filter Field or for ALL API
 	@GetMapping(value = "listing/{FilterField}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Object>> doListing(@RequestHeader("APP-Token") String authenticateKey, @PathVariable String FilterField) {
 		List<Object> usersList = authorizationServices.userListAuthorization(authenticateKey, FilterField);
